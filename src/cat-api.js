@@ -7,3 +7,9 @@ export const fetchBreeds = () => {
   return axios.get(`https://api.thecatapi.com/v1/breeds`).then(res => res.data);
   // .then(data => renderSelect(data));
 };
+
+export const fetchCatByBreed = breedId => {
+  return axios
+    .get(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`)
+    .then(res => res.data);
+};

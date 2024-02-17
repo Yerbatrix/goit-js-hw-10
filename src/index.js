@@ -1,15 +1,16 @@
-import { fetchBreeds } from './cat-api';
+import { fetchBreeds, fetchCatByBreed } from './cat-api';
 
 const fetchBreedsBtn = document.querySelector('.btn');
 const breedSelect = document.querySelector('.breed-select');
+const catInfo = document.querySelector('.cat-info');
+const loader = document.querySelector('.loader');
 
-fetchBreedsBtn.addEventListener('click', () => {
-  try {
-    fetchBreeds().then(data => renderSelect(data));
-  } catch (error) {
-    console.log(error);
-  }
-});
+try {
+  loader.classList.remove('hidden');
+  fetchBreeds().then(data => renderSelect(data));
+} catch (error) {
+  console.log(error);
+}
 
 function renderSelect(breeds) {
   const markup = breeds
@@ -18,8 +19,25 @@ function renderSelect(breeds) {
     })
     .join('');
   breedSelect.insertAdjacentHTML('beforeend', markup);
+  loader.classList.add('hidden');
 }
 
 breedSelect.addEventListener('change', e => {
-  console.log(e.target.value);
+  loader.classList.remove('hidden');
+  fetchCatByBreed(e.target.value).then(data => renderCat(data[0]));
 });
+
+function renderCat(catData) {
+  const { url } = catData;
+  const { description, name, temperament } = catData.breeds[0];
+  catInfo.insertAdjacentHTML(
+    'beforeend',
+    `<div>
+  <h2>${name}</h2>
+  <img src = ${url} alt = ${name}/>
+  <p>${description}</p>
+  <p>Temperament: ${temperament}</p>
+  </div>`
+  );
+  loader.classList.add('hidden');
+}
