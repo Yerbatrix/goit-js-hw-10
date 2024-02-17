@@ -1,17 +1,25 @@
-import axios from 'axios';
+import { fetchBreeds } from './cat-api';
 
 const fetchBreedsBtn = document.querySelector('.btn');
+const breedSelect = document.querySelector('.breed-select');
 
 fetchBreedsBtn.addEventListener('click', () => {
   try {
-    axios.defaults.headers.common['x-api-key'] =
-      'live_44KoTHoJ2869pUV9FwAO5e9D0JiJL83lJX8R3UNouJWAxwNjRYasMKJxe6ZXajcd';
-
-    axios
-      .get(`https://api.thecatapi.com/v1/breeds`)
-      .then(res => res.data)
-      .then(data => console.log(data));
+    fetchBreeds().then(data => renderSelect(data));
   } catch (error) {
     console.log(error);
   }
+});
+
+function renderSelect(breeds) {
+  const markup = breeds
+    .map(({ id, name }) => {
+      return `<option value="${id}">${name}</option>`;
+    })
+    .join('');
+  breedSelect.insertAdjacentHTML('beforeend', markup);
+}
+
+breedSelect.addEventListener('change', e => {
+  console.log(e.target.value);
 });
