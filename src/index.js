@@ -28,13 +28,14 @@ breedSelect.addEventListener('change', e => {
 });
 
 function renderCat(catData) {
+  catInfo.innerHTML = '';
   const { url } = catData;
   const { description, name, temperament } = catData.breeds[0];
   catInfo.insertAdjacentHTML(
     'beforeend',
     `<div>
   <h2>${name}</h2>
-  <img src = ${url} alt = ${name}/>
+  <img width = "800" src = ${url} alt = ${name}/>
   <p>${description}</p>
   <p>Temperament: ${temperament}</p>
   </div>`
