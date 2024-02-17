@@ -1,6 +1,5 @@
 import { fetchBreeds, fetchCatByBreed } from './cat-api';
 
-const fetchBreedsBtn = document.querySelector('.btn');
 const breedSelect = document.querySelector('.breed-select');
 const catInfo = document.querySelector('.cat-info');
 const loader = document.querySelector('.loader');
@@ -13,6 +12,10 @@ try {
 }
 
 function renderSelect(breeds) {
+  breedSelect.insertAdjacentHTML(
+    'beforeend',
+    `<option value="start">---Choose your cat---</option>`
+  );
   const markup = breeds
     .map(({ id, name }) => {
       return `<option value="${id}">${name}</option>`;
