@@ -29,3 +29,18 @@
     transform: rotate(360deg);
   }
 }
+
+.breed-fluff {
+  display: flex;
+  padding: 20px;
+}
+
+.desrc-temp {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.temp-span {
+  font-weight: 600;
+}
