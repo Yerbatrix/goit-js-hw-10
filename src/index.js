@@ -21,7 +21,12 @@ try {
   fetchBreeds()
     .then(data => {
       renderSelect(data);
-      const slim = new SlimSelect(breedSelect);
+      new SlimSelect({
+        select: breedSelect,
+        settings: {
+          placeholderText: '---Choose one of this marvelous creatures---',
+        },
+      });
     })
     .catch(handleError);
 } catch (error) {
@@ -32,7 +37,7 @@ function renderSelect(breeds) {
   breedSelect.innerHTML = '';
   breedSelect.insertAdjacentHTML(
     'beforeend',
-    `<option value="start">---Choose your cat---</option>`
+    `<option data-placeholder="true"></option>`
   );
   const markup = breeds
     .map(({ id, name }) => {
